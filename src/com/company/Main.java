@@ -1,44 +1,66 @@
 package com.company;
+import com.sun.javaws.IconUtil;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        int a;
+        int mainNum, listNum, tasksNum, anotherTaskNum;
         Menu main = new Menu();
+
 
         do {
             main.mainScreen();
 
             Scanner input = new Scanner(System.in);
-            a = input.nextInt();
+            mainNum = input.nextInt();
 
-            switch (a) {
+            if (mainNum > 3){
+                main.error();
+            }
+
+            switch (mainNum) {
                 case 1:
                     main.viewList();
 
-                    int b = input.nextInt();
-                    if (b == 1) {
-                        main.mainScreen();
-                    } else if (b == 2) {
-                        System.out.println("status have changed");
-                    } else
-                        System.out.println("its an error!");
+                    listNum = input.nextInt();
+
+                    if (listNum > 2) {
+                        main.error();
+                    }
+
+                    do{
+                        System.out.println("Status changed");
+                        break;
+                    }while (listNum == 2);
+
                     break;
 
                 case 2:
                     main.addTask();
-                    int c = input.nextInt();
-                    if (c == 1) {
-                        System.out.println("one more added");
-                    } else if (c == 2) {
-                        main.finish();
-                    } else
-                        System.out.println("its an error!");
+
+                    tasksNum = input.nextInt();
+
+                    if (tasksNum > 2) {
+                        main.error();
+                    }
+
+                    do{
+                        main.taskAdd();
+
+                        anotherTaskNum = input.nextInt();
+
+                        if (anotherTaskNum > 2) {
+                            main.error();
+                        }
+
+                    }while (tasksNum == 2 || anotherTaskNum != 2 );
                     break;
             }
-        }while (a != 3);
+
+        }while (mainNum != 3);
 
         main.finish();
 
